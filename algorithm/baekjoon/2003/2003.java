@@ -31,6 +31,7 @@ public class Main {
 		}
 		//2 pointers
 		int left = 0, right = 0, count = 0, sum = 0;
+		sum = nums[0];
 		while (true) {
 			//terminate
 			if (right == N)
