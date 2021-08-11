@@ -35,6 +35,9 @@ public class Main {
 			StringBuilder sb = new StringBuilder();
 			for(int i= 0; i < N; i++) {
 				//1, 2, 3, 4,...,N을 선택했는가를 기준으로 target(k)가 속하는 지 확인하는 반복문
+				//여기서 j <= N에서 등호를 포함하는 이유는 N을 출력해야 할 수도 있기 때문이다.
+				//만약, N이 4이고 4!에서 23번째 수열을 출력해야 하는 경우
+				// 4를 출력해야 하기 때문에 j == 4 즉, j == N일 때를 확인하고 j를 출력해야 한다.
 				for(int j = 1; j <= N; j++) {
 					if (visited[j])
 						continue;
