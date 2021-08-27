@@ -108,3 +108,95 @@ int형 변수를 사용해도 될 것
 54
 -24
 ```
+
+## Solutions
+
+### Solution1.java
+
+첫번째 solution에서는 완전탐색의 틀에 맞게 구현하였다.
+
+다만, 목적지에 도달했을 때 (K == N, 모든 연산자 배열을 만들었을 때)  연산자에 맞게 결과값을 계산하는 부분은 rec_func의 길이를 길게 하기 때문에 calculator()라는 함수를 따로 만들어 모듈화했다.
+
+solution1.java의 경우, **calculator() 함수 안에서 for문이 돌기 때문에 모든 경우에 대해서 O(nPm)의 시간복잡도에 연산결과를 계산하는 for문에 대한 시간복잡도도 더해진다.**
+
+```c
+//각각 연산자 순서대로 계산
+	static int calculator() {
+		int ans = nums[1];
+		
+		for(int i = 1; i < N; i++) {
+			if (selected[i] == 1)
+				ans += nums[i + 1];
+			if (selected[i] == 2)
+				ans -= nums[i + 1];
+			if (selected[i] == 3)
+				ans *= nums[i + 1];
+			if (selected[i] == 4)
+				ans /= nums[i + 1];
+		}
+		return (ans);
+	}
+	
+	static void rec_func(int k) {
+		//1. 목적지인가
+		if (k == N) {
+			//반환받은 value의 값으로 min, max갱신
+			int value = calculator();
+			
+			min = Math.min(min, value);
+			max = Math.max(max, value);
+		} else {
+			//2. 갈 수 있는 곳 순회
+			for(int i = 1; i < 5; i++) {
+				if (operators[i] > 0) {
+					//3. check in
+					operators[i]--;
+					selected[k] = i;
+					rec_func(k + 1);
+					operators[i]++;
+					selected[k] = 0;
+				}
+			}
+		}
+	}
+```
+
+### Solution2.java
+
+calculator() 안에서의 반복을 얻애기 위해서 rec_func함수를 호출할 때마다 K번째까지 계산한 결과값을 인자로 받도록 했다.
+
+매 연산자를 선택할 때마다 해당 연산자에 대한 연산도 같이 수행된다.
+
+```java
+//각각 연산자 순서대로 계산
+	static int calculator(int operand1, int operator, int operand2) {
+		if (operator == 1)
+			return (operand1 + operand2);
+		else if (operator == 2)
+			return (operand1 - operand2);
+		else if (operator == 3)
+			return (operand1 * operand2);
+		else
+			return (operand1 / operand2);
+	}
+	
+	static void rec_func(int k, int value) {
+		//1. 목적지인가
+		if (k == N) {
+			//반환받은 value의 값으로 min, max갱신			
+			min = Math.min(min, value);
+			max = Math.max(max, value);
+		} else {
+			//2. 갈 수 있는 곳 순회
+			for(int i = 1; i < 5; i++) {
+				if (operators[i] > 0) {
+					//3. check in
+					operators[i]--;
+					int new_value = calculator(value, i, nums[k + 1]);
+					rec_func(k + 1, new_value);
+					operators[i]++;
+				}
+			}
+		}
+	}
+```
