@@ -1,4 +1,3 @@
-[제목 없음](https://www.notion.so/a2083f4d5fe347799e696fc95d5849a1)
 
 ## 문제
 
