@@ -19,6 +19,7 @@ public class Main {
     //나와 같은 수 찾기
     static int lower_bound(int[] A, int L, int R, int X) {
       //같은 숫자가 여러 개 중복이기 때문에 숫자를 찾았다고 해서 반복문이 끝나면 안된다.
+        //또한, 같은 수 중에서 가장 작은 수를 찾아야 하기 때문에 나보다 큰 수를 찾았을 때를 기록하자.
        /*TODO*/
     }
 
