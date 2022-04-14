@@ -15,6 +15,9 @@
 	: 어떤 수로 정했을 때, K번째 수가 되는가(yes/no) 결정문제
 	- 어떤 수 정하기 : L = 1, R = N * N -> long
 	- K번째 수 인지 판단
+		-- 각각의 행들은 정렬되어 있음
+		-- candidate = row * col
+		-- 따라서 col = candidate / row이고, 해당 col값이 각 행에서 candidate보다 작거나 같은 수의 개수가 된다.(정렬되어 있으므로)
 	- 총 시간복잡도 : O(log(N*N) * N)
 ```
 
