@@ -1,0 +1,40 @@
+<script>
+  const log = console.log;
+</script>
+
+<!-- 
+    # 일급 함수
+    - 함수를 값으로 다룰 수 있다.
+    
+    # 고차 함수
+    - 함수를 값으로 다루는 함수
+    
+    ## 1. 함수를 인자로 받아서 실행하는 함수 -> applicative programming
+    - apply1
+    - times
+-->
+<script>
+  const apply1 = (f) => f(1); //함수를 인자로 받아서 사용하기 때문에 apply1은 고차함수
+  const add2 = (a) => a + 2;
+  log(apply1(add2)); // 3, (a => a + 2)(1) = 3
+  log(apply1((a) => a - 1)); // 0, (a => a - 1)(1) = 0
+
+  const times = (f, n) => {
+    let i = -1;
+    while (++i < n) f(i);
+  };
+
+  times(log, 3);
+  times((a) => log(a + 10), 3);
+</script>
+
+<!-- 
+    ## 2. 함수를 만들어 리턴하는 함수 (클로저를 만들어 리턴하는 함수)
+ -->
+<script>
+  const addMaker = (a) => (b) => a + b; //반환값은 함수이자 a를 기억하는 클로저
+  const add10 = addMaker(10);
+
+  log(add10); //함수가 실행되었을 때, 함수를 반환함
+  log(add10(5)); // 15
+</script>
